@@ -15,3 +15,4 @@
 ## Маинкрафт:
 > [tlauncher](https://tlauncher.org/) - для обычной игры
 > [Minecraft_Tools](https://www.mann-ivanov-ferber.ru/books/programmiruem-s-minecraft/) - сервер, чтобы работал код из geany
+https://discord.gg/gKP2baz9
