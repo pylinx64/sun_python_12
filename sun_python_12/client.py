@@ -5,6 +5,10 @@ import threading
 import time
 import colorama
 import tqdm
+import random
+
+from colorama import Fore, Style
+colorama.init()
 
 def receving (name, sock, switch):
 	while not switch:
@@ -34,6 +38,12 @@ s.bind((host,port))
 s.setblocking(0)
 
 name = input("$ name: ")
+
+colors = [Fore.GREEN, Fore.RED, Fore.CYAN, Fore.YELLOW, Fore.MAGENTA]
+name = list(name)
+name = [random.choice(colors)+char+ Fore.RESET for char in name]
+name = ''.join(name)
+
 # отправляет сообщение на сервер
 s.sendto(("["+name+"] => join chat ").encode("utf-8"), server)
 time.sleep(0.2)
@@ -41,6 +51,16 @@ time.sleep(0.2)
 # собирает сообщения с сервера
 rT = threading.Thread(target = receving, args = ("RecvThread", s, shutdown))
 rT.start()
+
+while shutdown == False:
+	try:
+		message = input()
+		message = Fore.GREEN + message + Fore.RESET
+		if message != '':
+			s.sendto(("["+name+"] > "+message).encode("utf-8"), server)
+	except:
+		s.sendto(("["+name+"] <= left chat ").encode("utf-8"), server)
+		shutdown = True
 
 # закрывает соединение (для безопасности)
 rT.join()
