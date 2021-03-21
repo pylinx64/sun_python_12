@@ -49,3 +49,4 @@ while True:
 		say_bot('маинкрафт старт')
 	else:
 		say_bot(random.choice(MESSAGE_ERROR))
+

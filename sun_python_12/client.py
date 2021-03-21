@@ -7,6 +7,8 @@ import colorama
 import tqdm
 import random
 
+from assistant import say_bot
+
 from colorama import Fore, Style
 colorama.init()
 
@@ -15,7 +17,7 @@ def receving (name, sock, switch):
 		try:
 			while True:
 				data, addr = sock.recvfrom(1024)
-				print('\n'+data.decode("utf-8"))
+				say_bot('\n'+data.decode("utf-8"))
 				time.sleep(0.2)	
 		except:
 			pass
@@ -39,13 +41,13 @@ s.setblocking(0)
 
 name = input("$ name: ")
 
-colors = [Fore.GREEN, Fore.RED, Fore.CYAN, Fore.YELLOW, Fore.MAGENTA]
-name = list(name)
-name = [random.choice(colors)+char+ Fore.RESET for char in name]
-name = ''.join(name)
+#colors = [Fore.GREEN, Fore.RED, Fore.CYAN, Fore.YELLOW, Fore.MAGENTA]
+#name = list(name)
+#name = [random.choice(colors)+char+ Fore.RESET for char in name]
+#name = ''.join(name)
 
 # отправляет сообщение на сервер
-s.sendto(("["+name+"] => join chat ").encode("utf-8"), server)
+s.sendto((name+" join chat ").encode("utf-8"), server)
 time.sleep(0.2)
 
 # собирает сообщения с сервера
@@ -55,7 +57,7 @@ rT.start()
 while shutdown == False:
 	try:
 		message = input()
-		message = Fore.GREEN + message + Fore.RESET
+		#message = Fore.GREEN + message + Fore.RESET
 		if message != '':
 			s.sendto(("["+name+"] > "+message).encode("utf-8"), server)
 	except:
